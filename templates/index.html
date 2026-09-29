@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI Multiplayer Quiz</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+
+<body>
+
+<div class="app-container">
+
+
+    <!-- =====================================================
+         HOME
+    ====================================================== -->
+
+    <section
+        id="homeScreen"
+        class="screen active"
+    >
+
+        <div class="hero">
+
+            <h1>
+                AI Multiplayer Quiz
+            </h1>
+
+            <p>
+                Create an AI-powered quiz,
+                invite your friends,
+                and compete in real time.
+            </p>
+
+
+            <div class="home-buttons">
+
+                <button
+                    id="showCreateBtn"
+                    class="primary-btn"
+                    type="button"
+                >
+                    Create Quiz
+                </button>
+
+
+                <button
+                    id="showJoinBtn"
+                    class="secondary-btn"
+                    type="button"
+                >
+                    Join Quiz
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CREATE QUIZ
+    ====================================================== -->
+
+    <section
+        id="createScreen"
+        class="screen"
+    >
+
+        <div class="card">
+
+            <button
+                id="backFromCreateBtn"
+                class="back-btn"
+                type="button"
+            >
+                ← Back
+            </button>
+
+
+            <h2>
+                Create Quiz
+            </h2>
+
+
+            <p class="muted">
+                Generate questions using a topic,
+                notes, image, or PDF.
+            </p>
+
+
+            <form id="createQuizForm">
+
+
+                <!-- Hidden title for backend compatibility -->
+
+                <input
+                    id="quizTitle"
+                    name="title"
+                    type="hidden"
+                    value="AI Quiz"
+                >
+
+<!-- ============================================================
+     AI QUIZ COMPOSER
+     ============================================================ -->
+
+                <div class="quiz-composer-wrapper">
+                
+                    <label class="composer-label">
+                        What do you want to be quizzed on?
+                    </label>
+                
+                    <div class="quiz-composer" id="quizComposer">
+                    
+                        <!-- ATTACHMENTS -->
+                        <div
+                            class="composer-attachments hidden"
+                            id="composerAttachments"
+                        ></div>
+                    
+                    
+                        <!-- TEXT AREA -->
+                        <textarea
+                            id="quizTopic"
+                            name="topic"
+                            class="composer-textarea"
+                            placeholder="Enter a topic, paste your notes, or describe what you want to learn..."
+                            rows="5"
+                        ></textarea>
+                    
+                    
+                        <!-- COMPOSER BOTTOM BAR -->
+                        <div class="composer-bottom">
+                        
+                            <div class="composer-left">
+                            
+                                <button
+                                    type="button"
+                                    id="attachmentBtn"
+                                    class="attachment-btn"
+                                    title="Add files"
+                                    aria-label="Add files"
+                                    aria-expanded="false"
+                                >
+                                    <span class="plus-icon">+</span>
+                                </button>
+                            
+                                <!-- HIDDEN FILE INPUTS -->
+                            
+                                <input
+                                    type="file"
+                                    id="quizImage"
+                                    accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+                                    hidden
+                                >
+                            
+                                <input
+                                    type="file"
+                                    id="quizPdf"
+                                    accept=".pdf,application/pdf"
+                                    hidden
+                                >
+                            
+                            
+                                <!-- ATTACHMENT MENU -->
+                            
+                                <div
+                                    class="attachment-menu hidden"
+                                    id="attachmentMenu"
+                                >
+                            
+                                    <button
+                                        type="button"
+                                        id="addImageBtn"
+                                        class="attachment-menu-item"
+                                    >
+                                        <span class="attachment-menu-icon">🖼️</span>
+                            
+                                        <span>
+                                            <strong>Add image</strong>
+                                            <small>JPG, PNG, WEBP</small>
+                                        </span>
+                                    </button>
+                                
+                                
+                                    <button
+                                        type="button"
+                                        id="addPdfBtn"
+                                        class="attachment-menu-item"
+                                    >
+                                        <span class="attachment-menu-icon">📄</span>
+                                
+                                        <span>
+                                            <strong>Add PDF</strong>
+                                            <small>PDF document</small>
+                                        </span>
+                                    </button>
+                                
+                                </div>
+                            
+                            </div>
+                        
+                        </div>
+                    
+                    </div>
+                
+                
+                    <!-- FILE GUIDELINES -->
+                
+                    <div class="composer-guidelines">
+                    
+                        <span>Images: JPG, PNG, WEBP · max 5 MB</span>
+                    
+                        <span class="guideline-separator">•</span>
+                    
+                        <span>PDF: max 10 MB</span>
+                    
+                    </div>
+                
+                
+                    <!-- OLD PREVIEW CONTAINERS CAN REMAIN -->
+                
+                    <div
+                        id="imagePreview"
+                        class="hidden"
+                    ></div>
+                
+                    <div
+                        id="pdfPreview"
+                        class="hidden"
+                    ></div>
+                
+                </div>
+                
+                <!-- =================================================
+                     SETTINGS
+                ================================================== -->
+
+                <div class="form-group">
+
+                    <label for="questionCount">
+                        Number of Questions
+                    </label>
+
+
+                    <input
+                        id="questionCount"
+                        name="question_count"
+                        type="number"
+                        min="1"
+                        max="50"
+                        value="10"
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="questionTime">
+                        Time per Question
+                    </label>
+
+
+                    <select
+                        id="questionTime"
+                        name="question_time"
+                    >
+
+                        <option value="10">
+                            10 seconds
+                        </option>
+
+                        <option value="15">
+                            15 seconds
+                        </option>
+
+                        <option
+                            value="20"
+                            selected
+                        >
+                            20 seconds
+                        </option>
+
+                        <option value="30">
+                            30 seconds
+                        </option>
+
+                        <option value="45">
+                            45 seconds
+                        </option>
+
+                        <option value="60">
+                            60 seconds
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="difficulty">
+                        Difficulty
+                    </label>
+
+
+                    <select
+                        id="difficulty"
+                        name="difficulty"
+                    >
+
+                        <option value="Easy">
+                            Easy
+                        </option>
+
+                        <option
+                            value="Medium"
+                            selected
+                        >
+                            Medium
+                        </option>
+
+                        <option value="Hard">
+                            Hard
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="checkbox-row">
+
+                    <input
+                        id="multiplayer"
+                        name="multiplayer"
+                        type="checkbox"
+                        checked
+                    >
+
+
+                    <label for="multiplayer">
+                        Multiplayer Quiz
+                    </label>
+
+                </div>
+
+
+
+                <div
+                    id="createError"
+                    class="error-message hidden"
+                ></div>
+
+
+
+                <button
+                    id="createQuizBtn"
+                    type="submit"
+                    class="primary-btn full-width"
+                >
+                    Create Quiz
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         JOIN QUIZ
+    ====================================================== -->
+
+    <section
+        id="joinScreen"
+        class="screen"
+    >
+
+        <div class="card">
+
+            <button
+                id="backFromJoinBtn"
+                class="back-btn"
+                type="button"
+            >
+                ← Back
+            </button>
+
+
+            <h2>
+                Join Quiz
+            </h2>
+
+
+            <p class="muted">
+                Join using an invite link or room code.
+            </p>
+
+
+            <form id="joinForm">
+
+
+                <!-- =================================================
+                     INVITE LINK
+                ================================================== -->
+
+                <div class="form-group">
+
+                    <label for="joinInviteLink">
+                        Join with Invite Link
+                    </label>
+
+
+                    <input
+                        id="joinInviteLink"
+                        type="url"
+                        autocomplete="off"
+                        placeholder="Paste quiz invite link here"
+                    >
+
+
+                    <small>
+                        Paste the link shared by the quiz host.
+                    </small>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     DIVIDER
+                ================================================== -->
+
+                <div class="join-divider">
+
+                    <span>
+                        OR
+                    </span>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     ROOM CODE
+                ================================================== -->
+
+                <div class="form-group">
+
+                    <label for="joinRoomCode">
+                        Enter Room Code
+                    </label>
+
+
+                    <input
+                        id="joinRoomCode"
+                        type="text"
+                        maxlength="6"
+                        minlength="6"
+                        autocomplete="off"
+                        placeholder="ABC123"
+                    >
+
+
+                    <small>
+                        Enter the 6-character code shown by the host.
+                    </small>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     PLAYER NAME
+                ================================================== -->
+
+                <div class="form-group">
+
+                    <label for="playerName">
+                        Your Name
+                    </label>
+
+
+                    <input
+                        id="playerName"
+                        type="text"
+                        maxlength="30"
+                        autocomplete="off"
+                        placeholder="Enter your name"
+                    >
+
+                </div>
+
+
+
+                <div
+                    id="joinError"
+                    class="error-message hidden"
+                ></div>
+
+
+
+                <button
+                    id="joinQuizBtn"
+                    type="submit"
+                    class="primary-btn full-width"
+                >
+                    Join Quiz
+                </button>
+
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         LOBBY
+    ====================================================== -->
+
+    <section
+        id="lobbyScreen"
+        class="screen"
+    >
+
+        <div class="card lobby-card">
+
+
+            <h2 id="lobbyTitle">
+                Quiz Lobby
+            </h2>
+
+
+
+            <!-- =================================================
+                 ROOM CODE
+            ================================================== -->
+
+            <div class="room-code-box">
+                <span class="room-code-label">Room Code</span>
+            
+                <div class="room-code-row">
+                    <strong id="roomCodeDisplay"></strong>
+                
+                    <button
+                        type="button"
+                        id="copyCodeBtn"
+                        class="copy-code-btn"
+                        title="Copy room code"
+                        aria-label="Copy room code"
+                    >
+                        <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <rect x="9" y="9" width="13" height="13" rx="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- =================================================
+                 INVITE LINK
+            ================================================== -->
+
+            <div class="invite-section">
+
+                <h3>
+                    Invite Players
+                </h3>
+
+
+                <div class="invite-row">
+
+                    <input
+                        id="inviteLink"
+                        type="text"
+                        readonly
+                        placeholder="Invite link will appear here"
+                    >
+
+
+                    <button
+                        id="copyInviteLinkBtn"
+                        class="secondary-btn"
+                        type="button"
+                    >
+                        Copy
+                    </button>
+
+                </div>
+
+
+                <p class="muted">
+                    Share this link with your friends.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 QR CODE
+            ================================================== -->
+
+            <div class="qr-section">
+
+                <h3>
+                    Scan to Join
+                </h3>
+
+
+                <img
+                    id="qrCodeImage"
+                    class="qr-code"
+                    alt="Quiz room QR code"
+                >
+
+
+                <p class="muted">
+                    Players can scan this QR code
+                    to open the quiz.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PLAYERS
+            ================================================== -->
+
+            <div class="players-section">
+
+                <h3>
+
+                    Players
+                    (<span id="playerCount">0</span>)
+
+                </h3>
+
+
+                <ul
+                    id="playersList"
+                    class="players-list"
+                ></ul>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 HOST CONTROLS
+            ================================================== -->
+
+            <div
+                id="hostControls"
+                class="host-controls hidden"
+            >
+
+                <button
+                    id="startQuizBtn"
+                    class="primary-btn full-width"
+                    type="button"
+                >
+                    Start Quiz
+                </button>
+
+            </div>
+
+
+
+            <p
+                id="waitingMessage"
+                class="muted center"
+            >
+                Waiting for the host to start...
+            </p>
+
+
+
+            <button
+                id="leaveLobbyBtn"
+                class="secondary-btn full-width"
+                type="button"
+            >
+                Leave Room
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         GAME
+    ====================================================== -->
+
+    <section
+        id="gameScreen"
+        class="screen"
+    >
+
+        <div class="game-container">
+
+
+            <!-- =================================================
+                 GAME HEADER
+            ================================================== -->
+
+            <div class="game-header">
+
+                <div>
+
+                    <span>
+                        Question
+                    </span>
+
+
+                    <strong>
+
+                        <span id="questionNumber">
+                            1
+                        </span>
+
+                        /
+
+                        <span id="totalQuestions">
+                            10
+                        </span>
+
+                    </strong>
+
+                </div>
+
+
+
+                <div
+                    id="timer"
+                    class="timer"
+                >
+                    20
+                </div>
+
+
+                <button
+                    id="leaveGameBtn"
+                    class="secondary-btn"
+                    type="button"
+                >
+                    Leave
+                </button>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 QUESTION
+            ================================================== -->
+
+            <div class="question-card">
+
+                <h2 id="questionText">
+                    Question text
+                </h2>
+
+
+                <div
+                    id="optionsContainer"
+                    class="options-container"
+                ></div>
+
+            </div>
+
+
+
+            <div
+                id="answerMessage"
+                class="answer-message"
+            ></div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FINAL RESULTS
+    ====================================================== -->
+
+    <section
+        id="resultsScreen"
+        class="screen"
+    >
+
+        <div class="card results-card">
+
+
+            <h2>
+                Quiz Finished!
+            </h2>
+
+
+
+            <!-- =================================================
+                 MY RESULT
+            ================================================== -->
+
+            <div
+                id="myResult"
+                class="my-result"
+            ></div>
+
+
+
+            <!-- =================================================
+                 LEADERBOARD
+            ================================================== -->
+
+            <div class="results-section">
+
+                <h3>
+                    Leaderboard
+                </h3>
+
+
+                <div
+                    id="leaderboard"
+                    class="leaderboard"
+                ></div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PERSONAL REVIEW
+            ================================================== -->
+
+            <div class="results-section">
+
+                <h3>
+                    My Answer Review
+                </h3>
+
+
+                <div
+                    id="personalResults"
+                    class="personal-results"
+                ></div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ACTIONS
+            ================================================== -->
+
+            <div class="results-actions">
+
+                <button
+                    id="playAgainBtn"
+                    class="primary-btn"
+                    type="button"
+                >
+                    Play Again
+                </button>
+
+
+                <button
+                    id="backHomeBtn"
+                    class="secondary-btn"
+                    type="button"
+                >
+                    Back Home
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         GLOBAL MESSAGE
+    ====================================================== -->
+
+    <div
+        id="globalMessage"
+        class="global-message hidden"
+        role="alert"
+    ></div>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     SOCKET.IO
+========================================================== -->
+
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.min.js"
+></script>
+
+
+
+<!-- =========================================================
+     APP JAVASCRIPT
+========================================================== -->
+
+<script
+    src="{{ url_for('static', filename='js/app.js') }}"
+></script>
+
+
+</body>
+</html>

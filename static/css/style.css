@@ -1,0 +1,1636 @@
+/* ============================================================
+   GLOBAL RESET
+============================================================ */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #0f172a;
+    color: #f8fafc;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+img {
+    max-width: 100%;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* ============================================================
+   APP / SCREENS
+============================================================ */
+
+.app-container {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.screen {
+    display: none;
+
+    width: 100%;
+    min-height: 100vh;
+
+    padding: 30px 20px;
+}
+
+.screen.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* ============================================================
+   HOME SCREEN
+============================================================ */
+
+.hero {
+    width: 100%;
+    max-width: 700px;
+
+    text-align: center;
+}
+
+.hero h1 {
+    margin: 0 0 15px;
+
+    font-size: clamp(2rem, 6vw, 4rem);
+    line-height: 1.1;
+}
+
+.hero p {
+    margin: 0 0 35px;
+
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+.home-buttons {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+
+/* ============================================================
+   GENERAL CARD
+============================================================ */
+
+.card {
+    width: 100%;
+    max-width: 700px;
+
+    padding: 30px;
+
+    background: #1e293b;
+
+    border: 1px solid #334155;
+    border-radius: 18px;
+}
+
+.card h2 {
+    margin: 0 0 10px;
+}
+
+.muted {
+    color: #94a3b8;
+}
+
+.center {
+    text-align: center;
+}
+
+
+/* ============================================================
+   BUTTONS
+============================================================ */
+
+.primary-btn,
+.secondary-btn,
+.back-btn {
+    min-height: 44px;
+
+    padding: 10px 18px;
+
+    border: none;
+    border-radius: 10px;
+
+    font-weight: 700;
+}
+
+.primary-btn {
+    background: #22c55e;
+    color: #052e16;
+}
+
+.primary-btn:hover:not(:disabled) {
+    background: #16a34a;
+}
+
+.secondary-btn {
+    background: #334155;
+    color: #f8fafc;
+}
+
+.secondary-btn:hover:not(:disabled) {
+    background: #475569;
+}
+
+.back-btn {
+    padding-left: 0;
+
+    background: transparent;
+    color: #94a3b8;
+}
+
+.back-btn:hover {
+    color: #f8fafc;
+}
+
+.full-width {
+    width: 100%;
+}
+
+
+/* ============================================================
+   FORM STRUCTURE
+============================================================ */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-weight: 700;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #475569;
+    border-radius: 10px;
+
+    outline: none;
+
+    background: #0f172a;
+    color: #f8fafc;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #22c55e;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.form-group small {
+    display: block;
+
+    margin-top: 6px;
+
+    color: #94a3b8;
+    line-height: 1.4;
+}
+
+
+/* ============================================================
+   CREATE QUIZ
+============================================================ */
+
+#createScreen .card {
+    max-width: 820px;
+}
+
+.create-header {
+    margin-bottom: 25px;
+}
+
+.create-header h2 {
+    margin-bottom: 8px;
+}
+
+.create-header p {
+    margin: 0;
+
+    color: #94a3b8;
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   CHATGPT-STYLE QUIZ COMPOSER
+============================================================ */
+
+.quiz-composer-wrapper {
+    width: 100%;
+    margin-bottom: 22px;
+}
+
+.quiz-composer-label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+
+/* Main composer */
+
+.quiz-composer {
+    position: relative;
+
+    width: 100%;
+
+    background: #0f172a;
+
+    border: 1px solid #475569;
+    border-radius: 18px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.quiz-composer:focus-within {
+    border-color: #22c55e;
+
+    box-shadow:
+        0 0 0 2px rgba(34, 197, 94, 0.12);
+}
+
+
+/* Main textarea */
+
+.quiz-composer textarea {
+    display: block;
+
+    width: 100%;
+    min-height: 145px;
+
+    padding: 17px 18px 58px;
+
+    resize: vertical;
+
+    border: none;
+    outline: none;
+
+    border-radius: 18px;
+
+    background: transparent;
+    color: #f8fafc;
+
+    line-height: 1.55;
+    font-size: 16px;
+}
+
+.quiz-composer textarea::placeholder {
+    color: #64748b;
+}
+
+.quiz-composer textarea:focus {
+    border: none;
+    outline: none;
+}
+
+
+/* Composer bottom bar */
+
+.composer-toolbar {
+    position: absolute;
+
+    left: 12px;
+    right: 12px;
+    bottom: 10px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    pointer-events: none;
+}
+
+
+/* Plus button */
+
+.composer-plus-btn {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid #475569;
+    border-radius: 10px;
+
+    background: #1e293b;
+    color: #f8fafc;
+
+    font-size: 26px;
+    line-height: 1;
+
+    pointer-events: auto;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease;
+}
+
+.composer-plus-btn:hover {
+    background: #334155;
+    border-color: #64748b;
+}
+
+.composer-plus-btn:active {
+    transform: scale(0.94);
+}
+
+
+/* ============================================================
+   ATTACHMENT MENU
+============================================================ */
+
+.composer-menu {
+    position: absolute;
+
+    left: 12px;
+    bottom: 58px;
+
+    width: 190px;
+
+    padding: 7px;
+
+    background: #1e293b;
+
+    border: 1px solid #475569;
+    border-radius: 12px;
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.35);
+
+    z-index: 50;
+}
+
+.composer-menu.hidden {
+    display: none;
+}
+
+.composer-menu button {
+    display: flex;
+
+    align-items: center;
+
+    width: 100%;
+
+    min-height: 42px;
+
+    padding: 9px 11px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: transparent;
+    color: #f8fafc;
+
+    text-align: left;
+}
+
+.composer-menu button:hover {
+    background: #334155;
+}
+
+
+/* ============================================================
+   HIDDEN FILE INPUTS
+============================================================ */
+
+.quiz-file-input {
+    display: none;
+}
+
+
+/* ============================================================
+   ATTACHMENT CHIPS
+============================================================ */
+
+.composer-attachments {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 10px;
+}
+
+.composer-attachments:empty {
+    display: none;
+}
+
+.attachment-chip {
+    display: flex;
+
+    align-items: center;
+
+    max-width: 100%;
+
+    gap: 8px;
+
+    padding: 7px 9px 7px 11px;
+
+    background: #1e293b;
+
+    border: 1px solid #475569;
+    border-radius: 10px;
+
+    color: #e2e8f0;
+
+    font-size: 14px;
+}
+
+.attachment-chip-name {
+    max-width: 260px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.attachment-chip-type {
+    color: #94a3b8;
+
+    font-size: 12px;
+}
+
+.attachment-remove {
+    width: 25px;
+    height: 25px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: none;
+    border-radius: 6px;
+
+    background: transparent;
+    color: #94a3b8;
+
+    font-size: 18px;
+}
+
+.attachment-remove:hover {
+    background: #334155;
+    color: #f8fafc;
+}
+
+
+/* ============================================================
+   FILE GUIDELINES
+============================================================ */
+
+.file-guidelines {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px 18px;
+
+    margin-top: 10px;
+
+    color: #64748b;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.file-guidelines span {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+}
+
+.file-guidelines strong {
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+
+/* ============================================================
+   OLD FILE PREVIEW SUPPORT
+   Keep these because your existing JS still uses them.
+============================================================ */
+
+.file-preview {
+    margin-top: 10px;
+
+    padding: 10px;
+
+    background: #0f172a;
+
+    border-radius: 10px;
+}
+
+.source-preview-image {
+    display: block;
+
+    width: 100%;
+    max-height: 220px;
+
+    object-fit: contain;
+
+    border-radius: 8px;
+}
+
+.selected-file {
+    color: #cbd5e1;
+
+    word-break: break-word;
+}
+
+
+/* ============================================================
+   QUIZ SETTINGS
+============================================================ */
+
+.quiz-settings {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 14px;
+
+    margin-top: 20px;
+}
+
+.quiz-settings .form-group {
+    margin-bottom: 0;
+}
+
+.quiz-settings label {
+    font-size: 14px;
+}
+
+.quiz-settings input,
+.quiz-settings select {
+    min-height: 46px;
+}
+
+
+/* ============================================================
+   MULTIPLAYER CHECKBOX
+============================================================ */
+
+.checkbox-row {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin: 20px 0;
+}
+
+.checkbox-row input {
+    width: 18px;
+    height: 18px;
+
+    accent-color: #22c55e;
+}
+
+
+/* ============================================================
+   CREATE QUIZ ACTION
+============================================================ */
+
+.create-actions {
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 25px;
+}
+
+.create-actions button {
+    flex: 1;
+}
+
+
+/* ============================================================
+   ERROR MESSAGES
+============================================================ */
+
+.error-message {
+    margin-bottom: 15px;
+
+    padding: 12px;
+
+    border: 1px solid #991b1b;
+    border-radius: 10px;
+
+    background: #450a0a;
+    color: #fecaca;
+}
+
+
+/* ============================================================
+   GLOBAL MESSAGE
+============================================================ */
+
+.global-message {
+    position: fixed;
+
+    left: 50%;
+    bottom: 25px;
+
+    transform: translateX(-50%);
+
+    width: max-content;
+    max-width: calc(100% - 30px);
+
+    padding: 13px 18px;
+
+    border: 1px solid #475569;
+    border-radius: 10px;
+
+    background: #334155;
+    color: #f8fafc;
+
+    z-index: 1000;
+}
+
+
+/* ============================================================
+   JOIN QUIZ
+============================================================ */
+
+#joinScreen .card {
+    max-width: 560px;
+}
+
+.join-description {
+    margin-bottom: 25px;
+
+    color: #94a3b8;
+
+    line-height: 1.5;
+}
+
+.join-form-actions {
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+.join-form-actions button {
+    flex: 1;
+}
+
+/* ============================================================
+   JOIN QUIZ DIVIDER
+============================================================ */
+
+.join-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 26px 0;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.join-divider::before,
+.join-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #475569;
+}
+
+.join-divider span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 34px;
+    height: 30px;
+
+    padding: 0 8px;
+
+    border-radius: 8px;
+
+    background: #1e293b;
+    border: 1px solid #334155;
+
+    color: #cbd5e1;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+
+/* ============================================================
+   LOBBY
+============================================================ */
+
+.lobby-card {
+    max-width: 790px;
+
+    text-align: center;
+}
+
+.room-code-box {
+    margin: 20px 0;
+
+    padding: 18px;
+
+    background: #0f172a;
+
+    border-radius: 12px;
+}
+
+.room-code-box span {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #94a3b8;
+}
+
+.room-code-row {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 14px;
+}
+
+.room-code-row strong {
+    letter-spacing: 6px;
+
+    font-size: 2rem;
+}
+
+
+/* ============================================================
+   COPY ROOM CODE BUTTON
+============================================================ */
+
+.copy-code-btn {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #334155;
+    color: #ffffff;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+.copy-code-btn:hover {
+    background: #475569;
+}
+
+.copy-code-btn:active {
+    transform: scale(0.94);
+}
+
+.copy-code-btn svg {
+    width: 20px;
+    height: 20px;
+
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   INVITE LINK
+============================================================ */
+
+.invite-section {
+    margin: 22px 0;
+}
+
+.invite-section h3 {
+    margin-bottom: 12px;
+}
+
+.invite-link-row {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    max-width: 520px;
+
+    margin: 0 auto;
+
+    gap: 8px;
+}
+
+.invite-link-row input {
+    flex: 1;
+
+    min-width: 0;
+    min-height: 44px;
+
+    padding: 10px 12px;
+
+    border: 1px solid #475569;
+    border-radius: 9px;
+
+    background: #0f172a;
+    color: #f8fafc;
+}
+
+.invite-link-row button {
+    min-height: 44px;
+
+    padding: 10px 18px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: #334155;
+    color: #f8fafc;
+
+    font-weight: 700;
+}
+
+.invite-link-row button:hover {
+    background: #475569;
+}
+
+.invite-help {
+    margin-top: 10px;
+
+    color: #94a3b8;
+}
+
+
+/* ============================================================
+   QR CODE
+============================================================ */
+
+.qr-section {
+    margin: 25px 0;
+}
+
+.qr-section h3 {
+    margin-bottom: 10px;
+}
+
+.qr-code {
+    display: block;
+
+    width: 220px;
+    height: 220px;
+
+    margin: 15px auto;
+
+    padding: 8px;
+
+    object-fit: contain;
+
+    background: #ffffff;
+
+    border-radius: 10px;
+}
+
+
+/* ============================================================
+   PLAYERS
+============================================================ */
+
+.players-section {
+    margin: 25px 0;
+
+    text-align: left;
+}
+
+.players-list {
+    list-style: none;
+
+    padding: 0;
+    margin: 0;
+}
+
+.player-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 8px;
+
+    padding: 12px;
+
+    background: #0f172a;
+
+    border-radius: 10px;
+}
+
+.host-tag,
+.you-tag {
+    padding: 4px 7px;
+
+    border-radius: 6px;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.host-tag {
+    margin-left: auto;
+
+    background: #facc15;
+    color: #422006;
+}
+
+.you-tag {
+    background: #22c55e;
+    color: #052e16;
+}
+
+
+/* ============================================================
+   GAME SCREEN
+============================================================ */
+
+.game-container {
+    width: 100%;
+    max-width: 850px;
+}
+
+.game-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+}
+
+.game-header > div:first-child {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.timer {
+    min-width: 75px;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    background: #22c55e;
+    color: #052e16;
+
+    font-size: 1.4rem;
+    font-weight: 800;
+
+    text-align: center;
+}
+
+.timer.danger {
+    background: #ef4444;
+    color: #ffffff;
+}
+
+.question-card {
+    padding: 25px;
+
+    background: #1e293b;
+
+    border: 1px solid #334155;
+    border-radius: 18px;
+}
+
+.question-card h2 {
+    margin-top: 0;
+
+    line-height: 1.4;
+}
+
+.options-container {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+
+    margin-top: 25px;
+}
+
+.answer-option {
+    min-height: 65px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 12px;
+
+    border: 1px solid #475569;
+    border-radius: 12px;
+
+    background: #0f172a;
+    color: #f8fafc;
+
+    text-align: left;
+}
+
+.answer-option:hover:not(:disabled) {
+    border-color: #22c55e;
+}
+
+.option-label {
+    min-width: 36px;
+    height: 36px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: #334155;
+
+    font-weight: 800;
+}
+
+.option-text {
+    line-height: 1.4;
+}
+
+.answer-option.correct {
+    border-color: #22c55e;
+
+    background: #14532d;
+}
+
+.answer-option.wrong {
+    border-color: #ef4444;
+
+    background: #450a0a;
+}
+
+.answer-message {
+    min-height: 30px;
+
+    margin-top: 15px;
+
+    text-align: center;
+
+    font-weight: 700;
+}
+
+.correct-message {
+    color: #4ade80;
+}
+
+.wrong-message {
+    color: #f87171;
+}
+
+
+/* ============================================================
+   RESULTS
+============================================================ */
+
+.results-card {
+    max-width: 900px;
+}
+
+.my-result {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 12px;
+
+    margin: 25px 0;
+}
+
+.result-stat {
+    padding: 15px;
+
+    background: #0f172a;
+
+    border-radius: 12px;
+
+    text-align: center;
+}
+
+.result-stat span {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #94a3b8;
+}
+
+.result-stat strong {
+    font-size: 1.2rem;
+}
+
+.results-section {
+    margin-top: 30px;
+}
+
+.leaderboard-table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+    padding: 12px 8px;
+
+    border-bottom: 1px solid #334155;
+
+    text-align: left;
+}
+
+.leaderboard-table th {
+    color: #94a3b8;
+}
+
+.current-player {
+    background: #172554;
+}
+
+
+/* ============================================================
+   PERSONAL RESULTS
+============================================================ */
+
+.personal-results {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+.review-card {
+    padding: 18px;
+
+    background: #0f172a;
+
+    border: 1px solid #334155;
+    border-radius: 12px;
+}
+
+.review-card h4 {
+    margin-top: 0;
+}
+
+.review-question {
+    line-height: 1.5;
+}
+
+.review-options {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+.review-option {
+    padding: 9px;
+
+    background: #1e293b;
+
+    border-radius: 7px;
+}
+
+.review-correct {
+    border: 1px solid #22c55e;
+
+    background: #14532d;
+}
+
+.review-wrong {
+    border: 1px solid #ef4444;
+
+    background: #450a0a;
+}
+
+.review-status {
+    margin-top: 12px;
+
+    font-weight: 700;
+}
+
+.review-correct-text {
+    color: #4ade80;
+}
+
+.review-wrong-text {
+    color: #f87171;
+}
+
+.review-timeout {
+    color: #facc15;
+}
+
+.results-actions {
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 30px;
+}
+
+.results-actions button {
+    flex: 1;
+}
+
+
+/* ============================================================
+   LEAVE QUIZ MODAL
+============================================================ */
+
+.custom-modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0, 0, 0, 0.65);
+
+    z-index: 9999;
+
+    animation: modalFadeIn 0.18s ease;
+}
+
+.custom-modal {
+    width: min(420px, 100%);
+
+    padding: 30px;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.3);
+
+    animation: modalSlideIn 0.2s ease;
+}
+
+.custom-modal-icon {
+    width: 54px;
+    height: 54px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 16px;
+
+    border-radius: 50%;
+
+    background: #fff3cd;
+    color: #b7791f;
+
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.custom-modal h2 {
+    margin: 0 0 10px;
+
+    color: #111827;
+
+    font-size: 24px;
+}
+
+.custom-modal p {
+    margin: 0 0 26px;
+
+    color: #6b7280;
+
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.custom-modal-buttons {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+}
+
+.custom-modal-buttons button {
+    min-height: 44px;
+
+    padding: 0 22px;
+
+    border: none;
+    border-radius: 10px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    transition:
+        transform 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.custom-modal-buttons button:hover {
+    transform: translateY(-1px);
+}
+
+.modal-cancel-btn {
+    background: #e5e7eb;
+    color: #1f2937;
+}
+
+.modal-leave-btn {
+    background: #dc2626;
+    color: #ffffff;
+}
+
+.modal-leave-btn:hover {
+    opacity: 0.9;
+}
+
+
+/* ============================================================
+   MODAL ANIMATIONS
+============================================================ */
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(10px)
+            scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE — TABLET
+============================================================ */
+
+@media (max-width: 700px) {
+
+    .quiz-settings {
+        grid-template-columns: 1fr;
+    }
+
+    .quiz-settings .form-group {
+        margin-bottom: 15px;
+    }
+
+    .my-result {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .options-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE — MOBILE
+============================================================ */
+
+@media (max-width: 650px) {
+
+    .screen {
+        padding: 18px 12px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .hero h1 {
+        font-size: 2.3rem;
+    }
+
+    .quiz-composer textarea {
+        min-height: 130px;
+
+        padding:
+            15px
+            15px
+            58px;
+    }
+
+    .file-guidelines {
+        flex-direction: column;
+
+        gap: 4px;
+    }
+
+    .invite-link-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .invite-link-row input,
+    .invite-link-row button {
+        width: 100%;
+    }
+
+    .room-code-row {
+        gap: 10px;
+    }
+
+    .room-code-row strong {
+        font-size: 1.7rem;
+        letter-spacing: 4px;
+    }
+
+    .qr-code {
+        width: 200px;
+        height: 200px;
+    }
+
+    .results-actions {
+        flex-direction: column;
+    }
+
+    .leaderboard-table {
+        font-size: 0.9rem;
+    }
+
+    .leaderboard-table th,
+    .leaderboard-table td {
+        padding: 9px 5px;
+    }
+}
+
+
+/* ============================================================
+   VERY SMALL MOBILE
+============================================================ */
+
+@media (max-width: 480px) {
+
+    .screen {
+        padding: 12px 8px;
+    }
+
+    .card {
+        padding: 17px;
+        border-radius: 14px;
+    }
+
+    .home-buttons {
+        flex-direction: column;
+    }
+
+    .home-buttons button {
+        width: 100%;
+    }
+
+    .my-result {
+        grid-template-columns: 1fr;
+    }
+
+    .custom-modal {
+        padding: 24px 20px;
+
+        border-radius: 16px;
+    }
+
+    .custom-modal-buttons {
+        flex-direction: column;
+    }
+
+    .custom-modal-buttons button {
+        width: 100%;
+    }
+
+    .attachment-chip {
+        width: 100%;
+    }
+
+    .attachment-chip-name {
+        max-width: calc(100% - 70px);
+    }
+}
